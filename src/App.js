@@ -1,7 +1,10 @@
 import React from 'react'
+import axios from 'axios'
 import RocketList from './component/RocketList'
 import LaunchList from './component/LaunchList'
-import axios from 'axios'
+import RocketDetails from './component/RocketDetails'
+import Route from './component/Route'
+import Header from './component/Header'
 
 class App extends React.Component{
 
@@ -29,13 +32,41 @@ class App extends React.Component{
         this.setState({launches:launchList.data})
     }
 
+    
     render(){
-    return (
-        <div>
-            <RocketList rockets={this.state.rockets}/>
-            <LaunchList launches = {this.state.launches}/>
-        </div>
-    )
+        // const showRockets = ()=>{
+        //     if(window.location.pathname==='/'){
+        //         return <RocketList rockets={this.state.rockets}/>
+        //     }
+        // }
+        // const showLaunches = ()=>{
+        //     if(window.location.pathname==='/'){
+        //         return <LaunchList launches = {this.state.launches}/>
+        //     }
+        // }
+        // const rocketDetails = ()=>{
+        //     if(window.location.pathname==='/details'){
+        //         return <RocketDetails/>
+        //     }
+        // }
+        return (
+            <div>
+                
+                <Header/>
+                <Route path='/'>
+                    <RocketList rockets={this.state.rockets}/>
+                    <LaunchList launches = {this.state.launches}/>
+                </Route>
+                {/* <Route path='/details'>
+                    <RocketDetails/>
+                </Route> */}
+                {/* {showRockets()}
+                {showLaunches()}
+                {rocketDetails()} */}
+                {/* <RocketList rockets={this.state.rockets}/> */}
+                {/* <LaunchList launches = {this.state.launches}/> */}
+            </div>
+        )
     
     }
 }
