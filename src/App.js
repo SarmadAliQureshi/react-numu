@@ -8,7 +8,7 @@ import Header from './component/Header'
 
 class App extends React.Component{
 
-    state = {rockets:[],launches:[]}
+    state = {rockets:[],launches:[],selectedRocket:[]}
     componentDidMount(){
         console.log('1st rendering'); 
         this.getRocketList()
@@ -31,7 +31,10 @@ class App extends React.Component{
         console.log('rock', launchList);
         this.setState({launches:launchList.data})
     }
-
+    rocketselect = (e) =>{
+        console.log('Selected rocket from the app',e)
+        this.setState({selectedRocket:e})
+    }
     
     render(){
         // const showRockets = ()=>{
@@ -49,17 +52,19 @@ class App extends React.Component{
         //         return <RocketDetails/>
         //     }
         // }
+        
         return (
             <div>
                 
                 <Header/>
                 <Route path='/'>
-                    <RocketList rockets={this.state.rockets}/>
+                    <RocketList rockets={this.state.rockets}  rocketselect={this.rocketselect}/>
                     <LaunchList launches = {this.state.launches}/>
                 </Route>
-                {/* <Route path='/details'>
-                    <RocketDetails/>
-                </Route> */}
+                {/* {<RocketDetails selectedRocket={this.state.selectedRocket}/>} */}
+                <Route path='/details'>
+                    <RocketDetails selectedRocket={this.state.selectedRocket}/>
+                </Route>
                 {/* {showRockets()}
                 {showLaunches()}
                 {rocketDetails()} */}

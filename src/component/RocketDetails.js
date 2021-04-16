@@ -1,9 +1,12 @@
 import React from 'react'
 
-const RocketDetails = ()=>{
-    // console.log('rockets',props);
+const RocketDetails = ({selectedRocket})=>{
+    
+    console.log('RocketDetails',selectedRocket);
     return(<div>
-        Rockets
+        Rocket details is
+        <br></br>
+        {selectedRocket.rocket_name}
     </div>)
 }
 
