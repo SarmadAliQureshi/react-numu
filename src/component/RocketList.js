@@ -17,9 +17,15 @@ const RocketList = ({rockets,rocketselect})=>{
     const rocket = rockets.map((rocket)=>{
         
         // console.log(rocket.rocket_name);
-        return(<div onClick={()=>{
+        return(<div onClick={(e)=>{
             rocketProperties(rocket)
             rocketselect(rocket)
+            e.preventDefault()
+            window.history.pushState({},'','/details')
+
+            const navEvent = new PopStateEvent('popstate')
+            console.log('pop', navEvent)
+            window.dispatchEvent(navEvent)
             }}>
             {rocket.rocket_name}
         </div>)

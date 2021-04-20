@@ -5,6 +5,7 @@ const Link = ({className,href,children})=>{
     const clickEvent = (e)=>{
         console.log(e);
         e.preventDefault()
+        // window.location.href='/details'
         window.history.pushState({},'',href)
 
         const navEvent = new PopStateEvent('popstate')

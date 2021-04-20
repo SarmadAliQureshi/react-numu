@@ -1,11 +1,11 @@
 import React from 'react'
 
-const LaunchList = ({launches})=>{
+const LaunchList = ({launches,launchselect})=>{
     // console.log('Lauches', launches);
     const launch = launches.map((launch)=>{
         // console.log(launch.mission_name);
         return(
-            <div>
+            <div onClick={()=>{launchselect(launch)}}>
                 {launch.mission_name}
             </div>
         )
