@@ -1,10 +1,10 @@
 import React from 'react'
 
-const RocketDetails = ({selectedRocket})=>{
+const RocketDetails = ({selectedRocket,selectedLaunch,listClick})=>{
 
     
-    console.log('RocketDetails',selectedRocket,  window.location);
-    if (selectedRocket){
+    console.log('RocketDetails',selectedRocket,  selectedLaunch,listClick);
+    if (listClick=='rocket'){
     return(<div>
         <br></br>
         <h3>{selectedRocket.rocket_name}</h3>
@@ -19,7 +19,28 @@ const RocketDetails = ({selectedRocket})=>{
         Weight = {selectedRocket.mass.kg}kg
     </div>)
     }
-    // else if (launchselect)
+    else if (listClick=='launch'){
+        return(
+            <div>
+            <br></br>
+            <h3>{selectedLaunch.mission_name}</h3>
+            <br></br>
+            <h5>Launch Details </h5>
+            <br></br>
+            <b>Flight Number : </b>{selectedLaunch.flight_number}
+            <br></br>
+            <b>Launch Date : </b>{selectedLaunch.launch_date_utc}
+            <br></br>
+            <b>Launch Site Name : </b>{selectedLaunch.launch_site.site_name_long}
+            <br></br>
+            <b>Rocket Used : </b>{selectedLaunch.rocket.rocket_name}
+            <br></br>
+        </div>
+        )
+    }
+    else{
+        return(<div>Please select rocket/launch from the Main Menu</div>)
+    }
 }
 
 export default RocketDetails

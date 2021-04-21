@@ -14,11 +14,11 @@ const RocketList = ({rockets,rocketselect})=>{
         <RocketDetails detials={e.rocket_name}/>
     }
 
-    const rocket = rockets.map((rocket)=>{
+    const rocket = rockets.map((rocket,index)=>{
         
         // console.log(rocket.rocket_name);
-        return(<div onClick={(e)=>{
-            rocketProperties(rocket)
+        return(<div key={index} onClick={(e)=>{
+            // rocketProperties(rocket)
             rocketselect(rocket)
             e.preventDefault()
             window.history.pushState({},'','/details')
