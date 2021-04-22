@@ -29,7 +29,7 @@ const LaunchList = ({launches,launchselect,loadmore,list_end})=>{
 
     return(
         <div style={{marginTop:'20px'}}>
-            <div><h3> Launch List</h3></div>
+            <div><h3>SpaceX Launch List</h3></div>
             <div className="ui ordered list">
             {launch}
             <button className="ui button"  style = {{marginTop:'10px'}} disabled={list_end} onClick={()=>{
