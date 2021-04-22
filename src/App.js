@@ -9,7 +9,7 @@ import LaunchDetails from './component/LaunchDetails'
 
 class App extends React.Component{
 
-    state = {rockets:[],launches:[],selectedRocket:[], selectedLaunch:[], listClick:null,totallaunch:0,currentLaunch:null}
+    state = {rockets:[],launches:[],selectedRocket:[], selectedLaunch:[], listClick:null,totallaunch:null,currentLaunch:null,launch_list:[],list_end:false}
     componentDidMount(){
         console.log('1st rendering'); 
         this.getRocketList()
@@ -25,13 +25,13 @@ class App extends React.Component{
     async getLaunchList(){
         const launchList = await axios.get('https://api.spacexdata.com/v3/launches',{
             params:{
-                limit:20,
                 order:'desc'
             }
         })
         // const launchList = launch.get()
         console.log('rock', launchList ,this.state.currentLaunch);
         this.setState({totallaunch:launchList.data.length})
+        this.setState({launch_list:launchList.data})
         var launch_list = launchList.data
         this.setState({launches:launch_list.slice(0,this.state.currentLaunch)})
     }
@@ -47,40 +47,25 @@ class App extends React.Component{
         this.setState({listClick:'launch'})
 
     }
-    // componentDidUpdate(r,l){
-    //     console.log('component updated1',r);
-    //     // console.log('component updated2',l)
-    //     // console.log('component updated3',this.state.selectedRocket)
-    //     if (l.selectedRocket.id!=this.state.selectedRocket.id){
-    //         return(<div>hahahi</div>)
-    //     }
-    //     // return(<div>hahahi</div>)
-    //     this.checkForState(r)
-    // };
 
-    
-    // // useEffect(()=>{},[selectedRocket])
-
-    // checkForState(r){
-    // if('r'==r){
-    //     console.log('chk state');
-    //     return(<RocketDetails selectedRocket={this.state.selectedRocket}/>)
-    //    }
-    // }
-    nextPage(){ 
-
-    }
     constructor(props){
         super(props)
         this.loadmore=this.loadmore.bind(this)
     }
     loadmore(e){
-        console.log('loadmore', e);
-        // var state = this.state.currentlaunch
-        this.setState({currentLaunch:20})
-        console.log(this.state.currentLaunch);
         
-        // var state = state+10
+        console.log('loadmore', e, this.state.totallaunch);
+        var current_slice_1 =this.state.currentLaunch+10
+        if(current_slice_1 < this.state.totallaunch){
+            console.log(current_slice_1);
+            this.setState({launches:this.state.launch_list.slice(0, current_slice_1)})
+            this.setState({currentLaunch:current_slice_1})
+            console.log( current_slice_1);
+        }
+        else{
+            this.setState({list_end:true})
+        }
+
     }
     
     render(){
@@ -101,12 +86,12 @@ class App extends React.Component{
         // }
         
         return (
-            <div>
+            <div className="ui container" >
                 
                 <Header/>
                 <Route path='/'>
                     <RocketList rockets={this.state.rockets}  rocketselect={this.rocketselect}/>
-                    <LaunchList launches = {this.state.launches} launchselect= {this.launchselect} loadmore={this.loadmore}/>
+                    <LaunchList launches = {this.state.launches} launchselect= {this.launchselect} loadmore={this.loadmore} list_end={this.state.list_end}/>
                 </Route>
                 {/* {<RocketDetails selectedRocket={this.state.selectedRocket}/>} */}
                 {/* <Route path='/details'>
@@ -116,12 +101,7 @@ class App extends React.Component{
                     <RocketDetails selectedRocket={this.state.selectedRocket}
                      selectedLaunch={this.state.selectedLaunch} listClick={this.state.listClick} />
                 </Route>
-                {/* {showRockets()}
-                {showLaunches()}
-                {rocketDetails()} */}
-                {/* <RocketList rockets={this.state.rockets}/> */}
-                {/* <LaunchList launches = {this.state.launches}/> */}
-                <button onClick={this.nextPage}>Next</button>
+
             </div>
         )
     

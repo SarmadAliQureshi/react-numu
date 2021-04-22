@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import RocketDetails from './RocketDetails'
+import { List } from 'semantic-ui-react'
 
 const RocketList = ({rockets,rocketselect})=>{
     // console.log('myfun',props);
@@ -17,7 +18,7 @@ const RocketList = ({rockets,rocketselect})=>{
     const rocket = rockets.map((rocket,index)=>{
         
         // console.log(rocket.rocket_name);
-        return(<div key={index} onClick={(e)=>{
+        return(<List.Item className="my-list" as='li' key={index} onClick={(e)=>{
             // rocketProperties(rocket)
             rocketselect(rocket)
             e.preventDefault()
@@ -27,17 +28,17 @@ const RocketList = ({rockets,rocketselect})=>{
             console.log('pop', navEvent)
             window.dispatchEvent(navEvent)
             }}>
-            {rocket.rocket_name}
-        </div>)
+            . &nbsp;&nbsp; {rocket.rocket_name}
+        </List.Item>)
     })
     
     return(
         <div>
             <div><h3>SpaceX rockets</h3></div>
-            <div>
+            <List as='ol' >
                 {/* <button onClick={()=>rocketselect('abc')}>Click</button> */}
             {rocket}
-            </div>
+            </List>
         </div>
     )
 

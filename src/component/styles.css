@@ -1,3 +1,19 @@
 .launch-list{
     overflow-y: scroll;
 }
+.abc::after{
+    background-color: aqua;
+}
+.my-list:hover {
+    font-weight: 900;
+    cursor: pointer;
+  }
+.ui.secondary.pointing.menu .item{
+    font-size: larger;
+    font-weight: 1000;
+    background-color: #edeef0;
+}
+.ui.secondary.pointing.menu .item:hover{
+    background-color: red;
+    font-weight: 1200;
+}
