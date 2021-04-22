@@ -17,3 +17,14 @@
     background-color: red;
     font-weight: 1200;
 }
+.rocket-div p{
+    color: red;
+    display: none;
+}
+/* .rocket-div:hover{
+    font-weight: 900;
+} */
+.rocket-div:hover p {
+    display: block;
+    color: red;
+  }

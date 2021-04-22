@@ -1,7 +1,7 @@
 import React from 'react'
 
-const LaunchDetails = ()=>{
+const Details = ()=>{
     return(<div>Launch Details</div>)
 }  
 
-export default LaunchDetails
+export default Details

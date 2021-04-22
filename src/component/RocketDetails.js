@@ -1,6 +1,6 @@
 import React from 'react'
-
-const RocketDetails = ({selectedRocket,selectedLaunch,listClick})=>{
+import Link from './Link'
+const RocketDetails = ({selectedRocket,selectedLaunch,listClick ,launchRocket})=>{
 
     
     console.log('RocketDetails',selectedRocket,  selectedLaunch,listClick);
@@ -33,7 +33,13 @@ const RocketDetails = ({selectedRocket,selectedLaunch,listClick})=>{
             <br></br>
             <b>Launch Site Name : </b>{selectedLaunch.launch_site.site_name_long}
             <br></br>
+            
+            <div className="rocket-div" onClick={()=>{launchRocket(selectedLaunch.rocket.rocket_id)}}>
+            <Link href='/details'>
             <b>Rocket Used : </b>{selectedLaunch.rocket.rocket_name}
+            </Link>
+            <p>Click to show rocket details</p>
+            </div>
             <br></br>
         </div>
         )

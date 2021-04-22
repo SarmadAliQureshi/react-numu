@@ -5,7 +5,7 @@ import LaunchList from './component/LaunchList'
 import RocketDetails from './component/RocketDetails'
 import Route from './component/Route'
 import Header from './component/Header'
-import LaunchDetails from './component/LaunchDetails'
+import Details from './component/Details'
 
 class App extends React.Component{
 
@@ -17,9 +17,10 @@ class App extends React.Component{
         this.setState({currentLaunch:10})   
     }
     async getRocketList(){
-        const rocketList = await axios.get('https://api.spacexdata.com/v3/rockets')
-        // console.log('rock', rocketList);
-        this.setState({rockets:rocketList.data})
+        var rocketList = await axios.get('https://api.spacexdata.com/v3/rockets')
+        rocketList = rocketList.data.reverse()
+        console.log('rock', rocketList);
+        this.setState({rockets:rocketList})
     }
 
     async getLaunchList(){
@@ -51,6 +52,7 @@ class App extends React.Component{
     constructor(props){
         super(props)
         this.loadmore=this.loadmore.bind(this)
+        this.launchRocket = this.launchRocket.bind(this)
     }
     loadmore(e){
         
@@ -66,6 +68,18 @@ class App extends React.Component{
             this.setState({list_end:true})
         }
 
+    }
+    async launchRocket(e){
+        console.log('r',e);
+        var url = 'https://api.spacexdata.com/v3/rockets/'+e
+        console.log('r',url);
+            var rocketList = await axios.get(url)
+            console.log('launchRocket', rocketList);
+            this.setState({selectedRocket:rocketList.data})
+            this.setState({listClick:'rocket'})
+            // console.log('rock', rocketList);
+            // this.setState({rockets:rocketList})
+        
     }
     
     render(){
@@ -90,7 +104,7 @@ class App extends React.Component{
                 
                 <Header/>
                 <Route path='/'>
-                    <RocketList rockets={this.state.rockets}  rocketselect={this.rocketselect}/>
+                    <RocketList rockets={this.state.rockets}  rocketselect={this.rocketselect} launchRocket={this.launchRocket}/>
                     <LaunchList launches = {this.state.launches} launchselect= {this.launchselect} loadmore={this.loadmore} list_end={this.state.list_end}/>
                 </Route>
                 {/* {<RocketDetails selectedRocket={this.state.selectedRocket}/>} */}
@@ -98,7 +112,7 @@ class App extends React.Component{
                     <RocketDetails selectedRocket={this.state.selectedRocket} />
                 </Route> */}
                 <Route path='/details'>
-                    <RocketDetails selectedRocket={this.state.selectedRocket}
+                    <RocketDetails selectedRocket={this.state.selectedRocket} launchRocket={this.launchRocket}
                      selectedLaunch={this.state.selectedLaunch} listClick={this.state.listClick} />
                 </Route>
 
